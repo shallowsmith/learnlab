@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useCarousel } from "@/hooks/useCarousel";
 
 const Landing = () => {
   const currentImage = useCarousel({ totalImages: 3 }); //TODO
@@ -39,7 +40,39 @@ const Landing = () => {
               alt={"Hero Banner ${index + 1}"}
               fill
               priority={index === currentImage}
+              sizes="(max-width:768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className={
+                'landing__hero-image ${index === currentImage ? "landing__hero-image-active":"" }'
+              }
             />
+          ))}
+        </div>
+      </motion.div>
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ amount: 0.3, once: true }}
+        className="landing__featured"
+      >
+        <h2 className="landing__featured-title">Featured Courses</h2>
+        <p className="landing__featured-description">
+          LearnLab provides professional courses for learners who wants to dive
+          deep into the industries. Take the courses that are taught by the
+          leading industry professionals.
+        </p>
+
+        <div className="landing__tags">
+          {[
+            "web development",
+            "enterprise IT",
+            "react nextjs",
+            "fullstack development",
+            "database management",
+          ].map((tag, index) => (
+            <span key={index} className="landing__tag">
+              {tag}
+            </span>
           ))}
         </div>
       </motion.div>
